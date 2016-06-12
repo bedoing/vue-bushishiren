@@ -17,7 +17,7 @@
               <div class="content" v-if="!isAuthor(message.from._id)">
                 <a class="author" v-link="{path: '/users/' + message.from._id}">{{message.from.name}}</a>
                 <div class="metadata">
-                  <span class="date">{{message._id | idToFromNow}}</span>
+                  <span class="date">{{message._id | idToFromNow}}</span><span v-if="!message.hasRead" class="notRead">(未读)</span>
                 </div>
                 <div class="text">{{message.content}}</div>
                 <div class="actions">
@@ -47,6 +47,8 @@
 .v-messages
   width $width
   margin 0 auto
+  .notRead
+    color $themeColor
   .reply
     font-size 12px
     color #999

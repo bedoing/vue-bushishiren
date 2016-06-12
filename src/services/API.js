@@ -660,6 +660,22 @@ API.getMessages = (limit, lastId) => {
   })
 }
 
+API.getUnreadMessagesCount = () => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'GET',
+      url: `${URL}/messages/unread`,
+      success: function (res) {
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
 API.deleteMessage = (messageId) => {
   return new Promise((resolve, reject) => {
     $.ajax({
