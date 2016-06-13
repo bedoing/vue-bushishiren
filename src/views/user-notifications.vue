@@ -48,6 +48,17 @@
                 </div>
               </div>
 
+              <div class="content" v-if="notification.type === 'follow'">
+                <a class="author" v-link="{path: '/users/' + notification.from._id}">{{notification.from.name}}</a>
+                <div class="metadata">
+                  <span class="date">{{notification._id | idToFromNow}}</span><span v-if="!notification.hasRead" class="notRead">(未读)</span>
+                </div>
+                <div class="text">关注了你</div>
+                <div class="actions">
+                  <a class="reply" @click.prevent="deleteNotification(notification._id)">删除</a>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
