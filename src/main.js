@@ -22,6 +22,7 @@ import userPoetries from './views/user-poetries.vue'
 import userGroups from './views/user-groups.vue'
 import userArchive from './views/user-archive.vue'
 import userMessages from './views/user-messages.vue'
+import userNotifications from './views/user-notifications.vue'
 
 import groups from './views/groups.vue'
 import group from './views/group.vue'
@@ -128,6 +129,10 @@ router.map({
   '/users/:uid/messages': {
     auth: true,
     component: userMessages
+  },
+  '/users/:uid/notifications': {
+    auth: true,
+    component: userNotifications
   },
   '/users/:uid/message': {
     auth: true,

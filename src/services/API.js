@@ -692,3 +692,53 @@ API.deleteMessage = (messageId) => {
     })
   })
 }
+
+API.getNotifications = (limit, lastId) => {
+  limit = limit || 20
+  lastId = lastId || ''
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'GET',
+      url: `${URL}/notifications?limit=${limit}&lastId=${lastId}`,
+      success: function (res) {
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
+API.getUnreadNotificationsCount = () => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'GET',
+      url: `${URL}/notifications/unread`,
+      success: function (res) {
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
+API.deleteNotification = (id) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'DELETE',
+      url: `${URL}/notifications/${id}`,
+      success: function (res) {
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
