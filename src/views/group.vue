@@ -4,6 +4,7 @@
     <user-setting-menu></user-setting-menu>
     <group :group="group"></group>
     <group-members :group="group" :members="groupMembers"></group-members>
+    <comment :comments="comments" type="group" :refe="group._id"></comment>
   </div>
 </div>
 </template>
@@ -23,7 +24,8 @@ export default {
       group: {
         _id: ''
       },
-      groupMembers: []
+      groupMembers: [],
+      comments: []
     }
   },
   route: {
@@ -31,22 +33,26 @@ export default {
       const groupId = this.$route.params.groupId
       return {
         group: API.getGroup(groupId),
-        groupMembers: API.getGroupMembers(groupId)
+        groupMembers: API.getGroupMembers(groupId),
+        comments: API.getCommentsByGroupId(groupId)
       }
     }
   },
   methods: {
   },
   events: {
-    // 'Group:delete': function () {
-    //   return this.redirect.call(this)
-    // }
+    'Comment:success': function () {
+      API.getCommentsByGroupId(this.group._id).then(comments => {
+        this.comments = comments
+      })
+    }
   },
   components: {
     'UserSettingMenu': require('../components/User-Setting-Menu.vue'),
     'NavMenu': require('../components/Nav-Menu.vue'),
     'Group': require('../components/Group.vue'),
-    'GroupMembers': require('../components/Group-Members.vue')
+    'GroupMembers': require('../components/Group-Members.vue'),
+    'Comment': require('../components/Comment.vue')
   }
 }
 </script>

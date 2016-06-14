@@ -37,6 +37,17 @@
                 </div>
               </div>
 
+              <div class="content" v-if="notification.type === 'comment' && notification.group">
+                <a class="author" v-link="{path: '/users/' + notification.from._id}">{{notification.from.name}}</a>
+                <div class="metadata">
+                  <span class="date">{{notification._id | idToFromNow}}</span><span v-if="!notification.hasRead" class="notRead">(未读)</span>
+                </div>
+                <div class="text">评论了你的诗社<a v-link="{path:'/groups/' + notification.group._id}">《{{notification.group.name}}》</a></div>
+                <div class="actions">
+                  <a class="reply" @click.prevent="deleteNotification(notification._id)">删除</a>
+                </div>
+              </div>
+
               <div class="content" v-if="notification.type === 'collect'">
                 <a class="author" v-link="{path: '/users/' + notification.from._id}">{{notification.from.name}}</a>
                 <div class="metadata">

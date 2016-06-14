@@ -178,6 +178,24 @@ API.getCommentsByPoetryId = (poetryId) => {
   })
 }
 
+API.getCommentsByGroupId = (groupId, limit, lastId) => {
+  limit = limit || 20
+  lastId = lastId || ''
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'GET',
+      url: `${URL}/groups/${groupId}/comments?limit=${limit}&lastId=${lastId}`,
+      success: function (res) {
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
 API.getUsers = (limit, lastId) => {
   limit = limit || 20
   lastId = lastId || ''
@@ -612,6 +630,9 @@ API.createComment = (payload) => {
   }
   if (payload.type == 'poetry') {
     url = `${URL}/poetries/${payload.refe}/comments`
+  }
+  if (payload.type == 'group') {
+    url = `${URL}/groups/${payload.refe}/comments`
   }
   if (!payload.reply) {
     delete payload.reply
