@@ -81,7 +81,7 @@ export default {
       })
     },
     deleteComment: function (commentId) {
-      return API.deleteComment(commentId).then((res) => {
+      return API.deleteComment(commentId).then(() => {
         this.comments = this.comments.filter(function (comment) {
           return comment._id !== commentId
         })

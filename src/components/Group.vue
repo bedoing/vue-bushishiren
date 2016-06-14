@@ -20,9 +20,10 @@
                 <div class="menu">
                   <div class="item" data-text="" @click="recommend('group', group._id)">推荐置顶</div>
                   <div class="item" data-text="" @click="report('group', group._id)">举报</div>
-                  <div class="divider" v-if="!!isAuthor"></div>
-                  <div class="item" data-text="" v-if="isAuthor" v-link="{path: '/groups/' + group._id + '/edit'}">编辑</div>
-                  <!-- <div class="item" data-text="" v-if="isAuthor" @click="deleteGroup">删除</div> -->
+                  <div class="divider" v-if="isMaster"></div>
+                  <div class="item" data-text="" v-if="isMaster" v-link="{path: '/groups/' + group._id + '/edit'}">编辑</div>
+                  <div class="item" data-text="" v-if="!isMaster && !group.hasJoined" @click="joinGroup">申请加入</div>
+                  <div class="item" data-text="" v-if="!isMaster && group.hasJoined" @click="leaveGroup">退出诗社</div>
                 </div>
               </div>
             </span>
@@ -36,9 +37,10 @@
 <script>
 import API from '../services/API'
 import User from '../mixins/User'
+import Redirect from '../mixins/Redirect'
 
 export default {
-  mixins: [User],
+  mixins: [User, Redirect],
   props: ['group'],
   ready() {
     $('.ui.dropdown').dropdown()
@@ -47,15 +49,17 @@ export default {
   methods: {
     recommend: API.recommend,
     report: API.report,
-    // deleteGroup: function () {
-    //   const groupId = this.group._id
-    //   return API.deleteGroup(groupId).then(() => {
-    //     this.$dispatch('Group:delete', groupId)
-    //   })
-    // }
+    joinGroup: function () {
+      const groupId = this.group._id
+      return API.joinGroup(groupId)
+    },
+    leaveGroup: function () {
+      const groupId = this.group._id
+      return API.leaveGroup(groupId)
+    }
   },
   computed: {
-    isAuthor: function () {
+    isMaster: function () {
       return this.uid === (this.group.master && this.group.master._id)
     }
   }

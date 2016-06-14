@@ -59,6 +59,49 @@
                 </div>
               </div>
 
+              <div class="content" v-if="notification.type === 'joinToGroup'">
+                <a class="author" v-link="{path: '/users/' + notification.from._id}">{{notification.from.name}}</a>
+                <div class="metadata">
+                  <span class="date">{{notification._id | idToFromNow}}</span><span v-if="!notification.hasRead" class="notRead">(未读)</span>
+                </div>
+                <div class="text">申请加入诗社<a v-link="{path: '/groups/' + notification.group._id}">《{{notification.group.name}}》</a>。<a href="#" @click.prevent="agreeJoinGroup(notification.group._id, notification.from._id)">同意</a></div>
+                <div class="actions">
+                  <a class="reply" @click.prevent="deleteNotification(notification._id)">删除</a>
+                </div>
+              </div>
+
+              <div class="content" v-if="notification.type === 'removeFromGroup'">
+                <a class="author" v-link="{path: '/users/' + notification.from._id}">{{notification.from.name}}</a>
+                <div class="metadata">
+                  <span class="date">{{notification._id | idToFromNow}}</span><span v-if="!notification.hasRead" class="notRead">(未读)</span>
+                </div>
+                <div class="text">管理员将你移出诗社<a v-link="{path: '/groups/' + notification.group._id}">《{{notification.group.name}}》</a></div>
+                <div class="actions">
+                  <a class="reply" @click.prevent="deleteNotification(notification._id)">删除</a>
+                </div>
+              </div>
+
+              <div class="content" v-if="notification.type === 'joinedGroup'">
+                <a class="author" v-link="{path: '/users/' + notification.from._id}">{{notification.from.name}}</a>
+                <div class="metadata">
+                  <span class="date">{{notification._id | idToFromNow}}</span><span v-if="!notification.hasRead" class="notRead">(未读)</span>
+                </div>
+                <div class="text">你已经加入诗社<a v-link="{path: '/groups/' + notification.group._id}">《{{notification.group.name}}》</a></div>
+                <div class="actions">
+                  <a class="reply" @click.prevent="deleteNotification(notification._id)">删除</a>
+                </div>
+              </div>
+
+              <div class="content" v-if="notification.type === 'leaveFromGroup'">
+                <a class="author" v-link="{path: '/users/' + notification.from._id}">{{notification.from.name}}</a>
+                <div class="metadata">
+                  <span class="date">{{notification._id | idToFromNow}}</span><span v-if="!notification.hasRead" class="notRead">(未读)</span>
+                </div>
+                <div class="text">退出了诗社<a v-link="{path: '/groups/' + notification.group._id}">《{{notification.group.name}}》</a></div>
+                <div class="actions">
+                  <a class="reply" @click.prevent="deleteNotification(notification._id)">删除</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -123,7 +166,8 @@ export default {
           return notification._id !== notificationId
         })
       })
-    }
+    },
+    agreeJoinGroup: API.agreeJoinGroup
   },
   components: {
     'UserSettingMenu': require('../components/User-Setting-Menu.vue'),

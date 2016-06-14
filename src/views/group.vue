@@ -3,6 +3,7 @@
     <nav-menu></nav-menu>
     <user-setting-menu></user-setting-menu>
     <group :group="group"></group>
+    <group-members :group="group" :members="groupMembers"></group-members>
   </div>
 </div>
 </template>
@@ -21,14 +22,16 @@ export default {
     return {
       group: {
         _id: ''
-      }
+      },
+      groupMembers: []
     }
   },
   route: {
     data() {
       const groupId = this.$route.params.groupId
       return {
-        group: API.getGroup(groupId)
+        group: API.getGroup(groupId),
+        groupMembers: API.getGroupMembers(groupId)
       }
     }
   },
@@ -42,7 +45,8 @@ export default {
   components: {
     'UserSettingMenu': require('../components/User-Setting-Menu.vue'),
     'NavMenu': require('../components/Nav-Menu.vue'),
-    'Group': require('../components/Group.vue')
+    'Group': require('../components/Group.vue'),
+    'GroupMembers': require('../components/Group-Members.vue')
   }
 }
 </script>

@@ -283,6 +283,92 @@ API.getGroup = (groupId) => {
   })
 }
 
+API.joinGroup = (groupId) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'POST',
+      url: `${URL}/groups/${groupId}/members`,
+      success: function (res) {
+        toastr.success('申请成功，等待管理员审核')
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
+API.leaveGroup = (groupId) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'DELETE',
+      url: `${URL}/groups/${groupId}/members`,
+      success: function (res) {
+        toastr.success('您已退出该诗社')
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
+API.agreeJoinGroup = (groupId, uid) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'POST',
+      url: `${URL}/groups/${groupId}/members/${uid}`,
+      success: function (res) {
+        toastr.success('您已同意该成员加入诗社')
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
+API.getGroupMembers = (groupId, limit, lastId) => {
+  limit = limit || 20
+  lastId = lastId || ''
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'GET',
+      url: `${URL}/groups/${groupId}/members?limit=${limit}&lastId=${lastId}`,
+      success: function (res) {
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
+API.removeUserFromGroup = (groupId, uid) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'DELETE',
+      url: `${URL}/groups/${groupId}/members/${uid}`,
+      success: function (res) {
+        toastr.success('移出成功')
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
 API.getAnnouncements = (limit, lastId) => {
   limit = limit || 20
   lastId = lastId || ''
