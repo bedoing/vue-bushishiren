@@ -22,8 +22,8 @@
                   <div class="item" data-text="" @click="report('group', group._id)">举报</div>
                   <div class="divider" v-if="isMaster"></div>
                   <div class="item" data-text="" v-if="isMaster" v-link="{path: '/groups/' + group._id + '/edit'}">编辑</div>
-                  <div class="item" data-text="" v-if="!isMaster && !group.hasJoined" @click="joinGroup">申请加入</div>
-                  <div class="item" data-text="" v-if="!isMaster && group.hasJoined" @click="leaveGroup">退出诗社</div>
+                  <div class="item" data-text="" v-if="uid && !isMaster && !group.hasJoined" @click="joinGroup">申请加入</div>
+                  <div class="item" data-text="" v-if="uid && !isMaster && group.hasJoined" @click="leaveGroup">退出诗社</div>
                 </div>
               </div>
             </span>
