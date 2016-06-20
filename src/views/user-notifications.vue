@@ -53,7 +53,7 @@
                 <div class="metadata">
                   <span class="date">{{notification._id | idToFromNow}}</span><span v-if="!notification.hasRead" class="notRead">(未读)</span>
                 </div>
-                <div class="text">收藏了你的诗<a v-link="{path:'/poems/' + notification.poem._id}">《{{notification.poem.title}}》</a>到<a v-link="{path:'/poetries/' + notification.poetry._id}">《{{notification.poetry.name}}》</a></div>
+                <div class="text">收藏了你的诗<a v-link="{path:'/poems/' + notification.poem._id}">《{{notification.poem.title}}》</a>到诗集<a v-link="{path:'/poetries/' + notification.poetry._id}">《{{notification.poetry.name}}》</a></div>
                 <div class="actions">
                   <a class="reply" @click.prevent="deleteNotification(notification._id)">删除</a>
                 </div>

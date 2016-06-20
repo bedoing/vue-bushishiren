@@ -36,7 +36,7 @@ API.signin = (mobile, password) => {
   })
 }
 
-API.signup = (mobile, password, repassword) => {
+API.signup = (mobile, password, repassword, code) => {
   return new Promise((resolve, reject) => {
     $.ajax({
       type: 'POST',
@@ -44,7 +44,8 @@ API.signup = (mobile, password, repassword) => {
       data: {
         mobile: mobile,
         password: password,
-        repassword: repassword
+        repassword: repassword,
+        code: code
       },
       success: function (res) {
         toastr.success('注册成功')
@@ -840,6 +841,27 @@ API.deleteNotification = (id) => {
       type: 'DELETE',
       url: `${URL}/notifications/${id}`,
       success: function (res) {
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
+API.getCode = (mobile, type) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'POST',
+      url: `${URL}/sms`,
+      data: {
+        mobile: mobile,
+        type: type
+      },
+      success: function (res) {
+        toastr.success('验证码已发送，请注意查收')
         resolve(res.data)
       },
       error: function (err) {

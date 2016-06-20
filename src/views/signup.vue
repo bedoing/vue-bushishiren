@@ -4,20 +4,25 @@
     <div class="container">
       <p class="title">不是诗人</p>
       <p class="subtitle">一个分享与发现的地方</p>
-      <div class="ui left icon input big fluid" style="border-bottom:1px solid #ddd">
+      <div class="ui action left icon input big fluid" style="border-bottom:1px solid #ddd">
         <input class="mobile" type="text" placeholder="手机号" v-model="mobile">
         <i class="user icon"></i>
+        <a class="ui button" @click="getCode">获取验证码</a>
       </div>
       <div class="ui left icon input big fluid">
         <input class="password" type="password" placeholder="密码" v-model="password">
         <i class="lock icon"></i>
       </div>
       <div class="ui left icon input big fluid">
-        <input class="repassword" type="password" placeholder="重复密码" v-model="repassword">
+        <input class="password" type="password" placeholder="重复密码" v-model="repassword">
         <i class="lock icon"></i>
       </div>
+      <div class="ui left icon input big fluid">
+        <input class="code" type="text" placeholder="验证码" v-model="code">
+        <i class="protect icon"></i>
+      </div>
       <br>
-      <a class="ui button fluid" @click="signup(mobile, password,repassword)">注册</a>
+      <a class="ui button fluid" @click="signup">注册</a>
       <div style="margin-top:5px">
         <a v-link="{path: '/signin'}" style="float:left;color:#fff">登录</a>
         <a v-link="{path: '/signup'}" style="float:right;color:#fff">忘记密码?</a>
@@ -66,7 +71,7 @@
       border-radius 0 !important
       border 0 !important
       border-bottom 1px solid #ddd !important;
-    .repassword
+    .code
       border-radius 0 0 4px 4px !important
       border 0 !important
     ::-webkit-input-placeholder
@@ -81,16 +86,29 @@ export default {
     return {
       mobile: '',
       password: '',
-      repassword: ''
+      repassword: '',
+      code: ''
     }
   },
   methods: {
-    signup: function (mobile, password, repassword) {
-      if (password !== repassword) {
-        return window.alert('两次密码输入不一致')
+    getCode: function () {
+      let mobile = this.mobile
+      if (!mobile) {
+        return toastr.error('请输入手机号')
       }
       mobile = '+86' + mobile
-      API.signup(mobile, password, repassword).then(user => {
+      return API.getCode(mobile, 'signup')
+    },
+    signup: function () {
+      let mobile = this.mobile
+      const password = this.password
+      const repassword = this.repassword
+      const code = this.code
+      if (password !== repassword) {
+        return toastr.error('两次密码输入不一致')
+      }
+      mobile = '+86' + mobile
+      return API.signup(mobile, password, repassword, code).then(user => {
         for (let key in user) {
           localStorage[key] = user[key]
         }
