@@ -59,6 +59,29 @@ API.signup = (mobile, password, repassword, code) => {
   })
 }
 
+API.resetPassword = (mobile, password, repassword, code) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'POST',
+      url: `${URL}/users/resetPassword`,
+      data: {
+        mobile: mobile,
+        password: password,
+        repassword: repassword,
+        code: code
+      },
+      success: function (res) {
+        toastr.success('重置密码成功')
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
 API.getPoems = (uid, limit, lastId) => {
   uid = uid || ''
   limit = limit || 20

@@ -28,12 +28,14 @@ export default {
     }
   },
   ready: function () {
-    API.getUnreadMessagesCount().then(_messagesUnread => {
-      this.messagesUnread = _messagesUnread
-    })
-    API.getUnreadNotificationsCount().then(_notificationsUnread => {
-      this.notificationsUnread = _notificationsUnread
-    })
+    if (this.uid) {
+      API.getUnreadMessagesCount().then(_messagesUnread => {
+        this.messagesUnread = _messagesUnread
+      })
+      API.getUnreadNotificationsCount().then(_notificationsUnread => {
+        this.notificationsUnread = _notificationsUnread
+      })
+    }
   },
   computed: {
     userId: function () {

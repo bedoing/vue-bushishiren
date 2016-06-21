@@ -4,6 +4,7 @@ import { fromNow, idToFromNow, idToDay } from './filters'
 import App from './App.vue'
 import signin from './views/signin.vue'
 import signup from './views/signup.vue'
+import forgetPassword from './views/forget-password.vue'
 
 import poems from './views/poems.vue'
 import poem from './views/poem.vue'
@@ -50,6 +51,9 @@ router.map({
   },
   '/signup': {
     component: signup
+  },
+  '/forgetPassword': {
+    component: forgetPassword
   },
   '/poems': {
     component: poems,

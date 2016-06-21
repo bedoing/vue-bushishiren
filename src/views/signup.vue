@@ -25,7 +25,7 @@
       <a class="ui button fluid" @click="signup">注册</a>
       <div style="margin-top:5px">
         <a v-link="{path: '/signin'}" style="float:left;color:#fff">登录</a>
-        <a v-link="{path: '/signup'}" style="float:right;color:#fff">忘记密码?</a>
+        <a v-link="{path: '/forgetPassword'}" style="float:right;color:#fff">忘记密码?</a>
       </div>
     </div>
   </div>
