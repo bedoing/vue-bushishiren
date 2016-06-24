@@ -55,7 +55,7 @@ export default {
     'UserSettingMenu': require('../components/User-Setting-Menu.vue'),
     'NavMenu': require('../components/Nav-Menu.vue'),
     'Poetry': require('../components/Poetry.vue'),
-    'PoetryItems': require('../components/Poetry-items.vue'),
+    'PoetryItems': require('../components/Poetry-Items.vue'),
     'Comment': require('../components/Comment.vue')
   }
 }
