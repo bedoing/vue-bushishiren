@@ -7,7 +7,7 @@
       <div class="ui action left icon input big fluid" style="border-bottom:1px solid #ddd">
         <input class="mobile" type="text" placeholder="手机号" v-model="mobile">
         <i class="user icon"></i>
-        <a class="ui button" @click="getCode">获取验证码</a>
+        <a class="ui button" @click="getCode" :class="{disabled: disabled}">获取验证码{{interval > 0 ? '(' + interval + 's)' : ''}}</a>
       </div>
       <div class="ui left icon input big fluid">
         <input class="password" type="password" placeholder="密码" v-model="password">
@@ -87,7 +87,9 @@ export default {
       mobile: '',
       password: '',
       repassword: '',
-      code: ''
+      code: '',
+      disabled: false,
+      interval: 0
     }
   },
   methods: {
@@ -97,6 +99,15 @@ export default {
         return toastr.error('请输入手机号')
       }
       mobile = '+86' + mobile
+      this.disabled = true
+      this.interval = 60
+      let handler = setInterval(() => {
+        this.interval--
+        if (this.interval <= 0) {
+          this.disabled = false
+          clearInterval(handler)
+        }
+      }, 1000)
       return API.getCode(mobile, 'signup')
     },
     signup: function () {
