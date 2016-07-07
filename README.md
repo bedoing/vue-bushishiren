@@ -4,7 +4,7 @@ Built with [Vue.js](http://vuejs.org), [vue-router](https://github.com/vuejs/vue
 
 ### Demo
 
-[Live demo](http://nswbmw.github.io/vue-bushishiren/).
+[Live demo](http://www.bushishiren.com).
 
 ### Screenshots
 
