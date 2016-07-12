@@ -1,5 +1,7 @@
 ## vue-bushishiren
 
+![logo](./static/logo.png)
+
 Built with [Vue.js](http://vuejs.org), [vue-router](https://github.com/vuejs/vue-router).
 
 ### Demo
