@@ -2,7 +2,7 @@
 <div class="v-forget-password">
   <div class="mask">
     <div class="container">
-      <p class="title">不是诗人</p>
+      <p class="title" v-link="{path: '/'}">不是诗人</p>
       <p class="subtitle">一个分享与发现的地方</p>
       <div class="ui action left icon input big fluid" style="border-bottom:1px solid #ddd">
         <input class="mobile" type="text" placeholder="手机号" v-model="mobile">
@@ -51,6 +51,7 @@
     margin 0 auto
     padding-top 200px
     .title
+      cursor pointer
       font-size 70px
       color #ffffff
       font-family $themeFont

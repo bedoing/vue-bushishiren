@@ -2,10 +2,11 @@
 <div class="v-signup-invite">
   <div class="mask">
     <div class="container">
-      <p class="title">不是诗人</p>
+      <p class="title" v-link="{path: '/'}">不是诗人</p>
       <p class="subtitle">一个分享与发现的地方</p>
-      <div class="ui input big fluid">
+      <div class="ui left icon input big fluid">
         <input class="code" type="text" placeholder="邀请码" v-model="code">
+        <i class="gift icon"></i>
       </div>
       <br>
       <a class="ui button fluid" @click="signupInvite">验证</a>
@@ -41,6 +42,7 @@
     margin 0 auto
     padding-top 200px
     .title
+      cursor pointer
       font-size 70px
       color #ffffff
       font-family $themeFont
