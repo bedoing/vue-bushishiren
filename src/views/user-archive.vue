@@ -65,7 +65,6 @@ export default {
     border-radius 3px
     width 64px
     height 64px
-    box-shadow  0 1px 2px #aaa
     float right
   .tag
     font-family $menuFont
