@@ -36,7 +36,27 @@ API.signin = (mobile, password) => {
   })
 }
 
-API.signup = (mobile, password, repassword, code) => {
+API.checkInviteCode = (inviteCode) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'POST',
+      url: `${URL}/signup/inviteCode`,
+      data: {
+        code: inviteCode
+      },
+      success: function (res) {
+        toastr.success('验证成功')
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
+API.signup = (mobile, password, repassword, code, inviteCode) => {
   return new Promise((resolve, reject) => {
     $.ajax({
       type: 'POST',
@@ -45,7 +65,8 @@ API.signup = (mobile, password, repassword, code) => {
         mobile: mobile,
         password: password,
         repassword: repassword,
-        code: code
+        code: code,
+        inviteCode: inviteCode
       },
       success: function (res) {
         toastr.success('注册成功')

@@ -1,21 +1,16 @@
 <template>
-<div class="v-signin">
+<div class="v-signup-invite">
   <div class="mask">
     <div class="container">
       <p class="title">不是诗人</p>
       <p class="subtitle">一个分享与发现的地方</p>
-      <div class="ui left icon input big fluid" style="border-bottom:1px solid #ddd">
-        <input class="mobile" type="text" placeholder="手机号" v-model="mobile">
-        <i class="user icon"></i>
-      </div>
-      <div class="ui left icon input big fluid">
-        <input class="password" type="password" placeholder="密码" v-model="password">
-        <i class="lock icon"></i>
+      <div class="ui input big fluid">
+        <input class="code" type="text" placeholder="邀请码" v-model="code">
       </div>
       <br>
-      <a class="ui button fluid" @click="signin(mobile, password)">登录</a>
+      <a class="ui button fluid" @click="signupInvite">验证</a>
       <div style="margin-top:5px">
-        <a v-link="{path: '/signup/invite'}" style="float:left;color:#fff">注册</a>
+        <a v-link="{path: '/signin'}" style="float:left;color:#fff">登录</a>
         <a v-link="{path: '/forgetPassword'}" style="float:right;color:#fff">忘记密码?</a>
       </div>
     </div>
@@ -26,7 +21,7 @@
 <style lang="stylus">
 @import "../variables.styl"
 
-.v-signin
+.v-signup-invite
   width 100%
   height 100%
   overflow-y scroll
@@ -55,11 +50,8 @@
       color #ffffff
       font-family $themeFont
       margin-top 0
-    .mobile
-      border-radius 4px 4px 0 0 !important
-      border 0 !important
-    .password
-      border-radius 0 0 4px 4px !important
+    .code
+      border-radius 4px !important
       border 0 !important
     ::-webkit-input-placeholder
       font-size 15px
@@ -71,24 +63,18 @@ import API from '../services/API'
 export default {
   data() {
     return {
-      mobile: '',
-      password: ''
+      code: ''
     }
   },
   methods: {
-    signin: function (mobile, password) {
-      mobile = '+86' + mobile
-      API.signin(mobile, password).then(user => {
-        for (let key in user) {
-          localStorage[key] = user[key]
-        }
-        API.ajaxSetup()//re setup
-        const query = this.$route.query
-        if (query && query.redirect) {
-          this.$route.router.go(decodeURIComponent(query.redirect))
-        } else {
-          this.$route.router.go('/')
-        }
+    signupInvite: function () {
+      const code = this.code
+      if (!/^[0-9A-Za-z]{6}$/.test(code)) {
+        toastr.error('请输入有效的邀请码')
+        return
+      }
+      return API.checkInviteCode(code).then(() => {
+        this.$route.router.go('/signup?code=' + code)
       })
     }
   }

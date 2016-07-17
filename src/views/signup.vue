@@ -92,6 +92,13 @@ export default {
       interval: 0
     }
   },
+  ready() {
+    const inviteCode = this.$route.query.code
+    if (!inviteCode || !/^[0-9A-Za-z]{6}$/.test(inviteCode)) {
+      toastr.error('请输入有效的邀请码')
+      this.$route.router.go('/signup/invite')
+    }
+  },
   methods: {
     getCode: function () {
       let mobile = this.mobile
@@ -115,11 +122,12 @@ export default {
       const password = this.password
       const repassword = this.repassword
       const code = this.code
+      const inviteCode = this.$route.query.code
       if (password !== repassword) {
         return toastr.error('两次密码输入不一致')
       }
       mobile = '+86' + mobile
-      return API.signup(mobile, password, repassword, code).then(user => {
+      return API.signup(mobile, password, repassword, code, inviteCode).then(user => {
         for (let key in user) {
           localStorage[key] = user[key]
         }
