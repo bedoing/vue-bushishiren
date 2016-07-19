@@ -97,7 +97,7 @@ export default {
     const inviteCode = this.$route.query.code
     if (!inviteCode || !/^[0-9A-Za-z]{6}$/.test(inviteCode)) {
       toastr.error('请输入有效的邀请码')
-      this.$route.router.go('/signup/invite')
+      this.$route.router.go('/invite')
     }
   },
   methods: {

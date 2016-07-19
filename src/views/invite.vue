@@ -1,5 +1,5 @@
 <template>
-<div class="v-signup-invite">
+<div class="v-invite">
   <div class="mask">
     <div class="container">
       <p class="title" v-link="{path: '/'}">不是诗人</p>
@@ -22,7 +22,7 @@
 <style lang="stylus">
 @import "../variables.styl"
 
-.v-signup-invite
+.v-invite
   width 100%
   height 100%
   overflow-y scroll

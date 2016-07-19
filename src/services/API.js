@@ -40,12 +40,28 @@ API.checkInviteCode = (inviteCode) => {
   return new Promise((resolve, reject) => {
     $.ajax({
       type: 'POST',
-      url: `${URL}/signup/inviteCode`,
+      url: `${URL}/inviteCode`,
       data: {
         code: inviteCode
       },
       success: function (res) {
         toastr.success('验证成功')
+        resolve(res.data)
+      },
+      error: function (err) {
+        toastr.error(err.responseJSON && err.responseJSON.message)
+        reject(err)
+      }
+    })
+  })
+}
+
+API.getInviteCode = () => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: 'GET',
+      url: `${URL}/inviteCode`,
+      success: function (res) {
         resolve(res.data)
       },
       error: function (err) {

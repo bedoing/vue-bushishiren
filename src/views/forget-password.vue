@@ -23,6 +23,10 @@
       </div>
       <br>
       <a class="ui button fluid" @click="resetPassword">重置密码</a>
+      <div style="margin-top:5px">
+        <a v-link="{path: '/signin'}" style="float:left;color:#fff">登录</a>
+        <a v-link="{path: '/invite'}" style="float:right;color:#fff">注册</a>
+      </div>
     </div>
   </div>
 </div>

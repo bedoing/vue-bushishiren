@@ -18,7 +18,7 @@
         </div>
         <div class="menu" v-else>
           <a class="item" v-link="{path: '/signin?redirect=' + encodeURIComponent($route.path)}">登录</a>
-          <a class="item" v-link="{path: '/signup/invite'}">注册</a>
+          <a class="item" v-link="{path: '/invite'}">注册</a>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@
       <a class="item" :class="{'active': path === '/archive'}" v-link="{path: urlPrefix + '/archive'}">归档</a>
       <a class="item" :class="{'active': path === '/messages'}" v-link="{path: urlPrefix + '/messages'}" v-if="uid === userId"><div class="ui button label" v-if="messagesUnread">{{messagesUnread}}</div>私信</a>
       <a class="item" :class="{'active': path === '/notifications'}" v-link="{path: urlPrefix + '/notifications'}" v-if="uid === userId"><div class="ui button label" v-if="notificationsUnread">{{notificationsUnread}}</div>通知</a>
+      <a class="item" v-if="uid === userId" @click="getInviteCode">邀请码</a>
     </div>
   </div>
 </template>
@@ -25,6 +26,7 @@ export default {
     return {
       messagesUnread: 0,
       notificationsUnread: 0,
+      inviteCode: ''
     }
   },
   ready: function () {
@@ -34,6 +36,14 @@ export default {
       })
       API.getUnreadNotificationsCount().then(_notificationsUnread => {
         this.notificationsUnread = _notificationsUnread
+      })
+    }
+  },
+  methods: {
+    getInviteCode: function () {
+      return API.getInviteCode().then(inviteCode => {
+        this.inviteCode = inviteCode
+        alert('您的邀请码为: ' + inviteCode)
       })
     }
   },
