@@ -36,7 +36,7 @@
               </form>
             </div>
 
-            <form class="ui reply form">
+            <form class="ui reply form" v-if="!!uid">
               <div class="field">
                 <textarea v-model="content"></textarea>
               </div>
