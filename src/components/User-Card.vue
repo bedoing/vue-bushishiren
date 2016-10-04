@@ -18,7 +18,7 @@
         <div class="extra content" v-if="uid === user._id">
           <a v-link="'/users/' + uid + '/edit'"><i class="write icon"></i>编辑个人资料</a>
         </div>
-        <div class="extra content" v-else>
+        <div class="extra content" v-else v-if="!!uid">
           <a v-link="{path: '/users/' + user._id + '/message'}"><i class="send icon"></i>私信</a>
           <a class="right floated" v-show="!user.hasFollowed" @click.prevent="follow(user._id)"><i class="plus icon"></i>关注</a>
           <a class="right floated" v-else @click.prevent="unfollow(user._id)"><i class="minus icon"></i>取消关注</a>
